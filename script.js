@@ -22,6 +22,8 @@ function makePageForEpisodes(episodeList) {
    myFunction();
   });
   createInput.placeholder = "search for movies";
+  createInput.style.margin="0.5% 20%";
+  createInput.style.padding="0.5%";
   rootElem.append(createInput);
 
  // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
