@@ -15,18 +15,22 @@ function makePageForEpisodes(episodeList) {
   rootElem.append(createTitle);
  // <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></input>
   let createInput = document.createElement("input");
-  createInput.style.width ="100%";
+  createInput.style.width ="50%";
   createInput.id = "myInput";
   createInput.type="text";
   createInput.addEventListener("keyup",function(e){
    myFunction();
   });
   createInput.placeholder = "search for movies";
-  createInput.style.margin="0.5% 20%";
+  createInput.style.margin="0.5% 0%";
   createInput.style.padding="0.5%";
   rootElem.append(createInput);
-
- // rootElem.textContent = `Got ${episodeList.length} episode(s)`;
+  
+  
+  let createTotalepisodes = document.createElement("p"); 
+  createTotalepisodes.textContent = `Displaying ${episodeList.length} episodes`;
+  createTotalepisodes.style.width="20%";
+  rootElem.append(createTotalepisodes);
 }
 
 function episodeData(episodeList) {
@@ -136,7 +140,7 @@ function seasonStringProcessor(episodeName, seasonNumber, episodeNumber) {
 function myFunction() {
   document.getElementById("#test");
   const rootElem = document.getElementById("root");
-  var input, filter, myP,b, i, txtValue;
+  var input, filter, myP, i, txtValue;
   input = document.getElementById("myInput");
   console.log(input);
   filter = input.value.toUpperCase();
