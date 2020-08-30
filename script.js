@@ -13,24 +13,62 @@ function makePageForEpisodes(episodeList) {
   createTitle.textContent = "Ali Haider TV Project";
   createTitle.style.color="black";
   rootElem.append(createTitle);
+
+
+  //test select
+  let createSelect = document.createElement("select");
+  createSelect.style.width = "20%";
+  createSelect.style.height = "7.6vh";
+  createSelect.style.margin ="1% 0.5%";
+  createSelect.style.padding = "0 0.2%";
+  createSelect.id ="select";
+  for (let i = 0; i < episodeList.length; i++) {
+    let option = document.createElement("option");
+    option.text = episodeList[i].name;
+    createSelect.append(option);
+  }
+
+  rootElem.append(createSelect);
+//
+createSelect.addEventListener("click", myFunction1);
+
+
+//test all episodes button
+
+let allButton = document.createElement("button"); 
+allButton.textContent = "All Episodes";
+  allButton.style.width = "5%";
+  allButton.style.height = "7.6vh";
+  allButton.style.margin = "1% 0.5%";
+  allButton.style.padding = "0 0.2%";
+  allButton.id = "allButton";
+  rootElem.append(allButton);
+
+  allButton.addEventListener("click", myFunction2);
+
+
  // <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></input>
   let createInput = document.createElement("input");
-  createInput.style.width ="50%";
+  createInput.style.width ="30%";
+  createInput.style.height="7vh";
   createInput.id = "myInput";
   createInput.type="text";
   createInput.addEventListener("keyup",function(e){
    myFunction();
   });
   createInput.placeholder = "search for movies";
-  createInput.style.margin="0.5% 0%";
-  createInput.style.padding="0.5%";
+  createInput.style.margin="1% 0.5%";
+  createInput.style.padding="0 0.2%";
   rootElem.append(createInput);
-  
+ 
   
   let createTotalepisodes = document.createElement("p"); 
   createTotalepisodes.textContent = `Displaying ${episodeList.length} episodes`;
   createTotalepisodes.style.width="20%";
+  createTotalepisodes.style.margin ="2% 0.5%";
   rootElem.append(createTotalepisodes);
+
+ 
 }
 
 function episodeData(episodeList) {
@@ -44,6 +82,7 @@ function episodeData(episodeList) {
   rootElem.style.justifyContent="space-around";
   rootElem.style.margin="1%";
  // createCard.style.width = "41.8%";
+  
 
 
   
@@ -52,7 +91,8 @@ function episodeData(episodeList) {
 
 
     // upper test card
-
+    //select
+    
 
     //create Card
     let createCard = document.createElement("div");
@@ -68,6 +108,9 @@ function episodeData(episodeList) {
     createCard.style.borderRadius="10px";
     
     rootElem.append(createCard);
+
+    
+
     
     // season number
     let seasonNumber = document.createElement("p");
@@ -119,6 +162,7 @@ function episodeData(episodeList) {
     createCard.append(createReference);
 
     
+    
   });
 }
 
@@ -134,6 +178,51 @@ function seasonStringProcessor(episodeName, seasonNumber, episodeNumber) {
   } else {
     return `${episodeName} - S${seasonNumber} E${episodeNumber}`;
   }
+}
+//
+
+//
+function myFunction2() {
+  var i, myP;
+  document.getElementById("#test");
+  const rootElem = document.getElementById("root");
+
+  myP = document.querySelectorAll("#test");
+
+  //console.log(myP);
+  for (i = 0; i < myP.length; i++) {
+    //b = rootElem.getElementsByTagName("p");
+    let getDivs = document.querySelectorAll("#test");
+    // console.log(getDivs);
+
+    myP[i].style.display = "";
+  
+
+  }
+ 
+}
+
+
+function myFunction1() {
+  var i, myP;
+  document.getElementById("#test");
+  const rootElem = document.getElementById("root");
+  let getSelect = document.querySelector("select").selectedIndex;
+  console.log(getSelect);
+
+  myP = document.querySelectorAll("#test");
+ 
+  //console.log(myP);
+  for (i = 0; i < myP.length; i++) {
+    //b = rootElem.getElementsByTagName("p");
+    let getDivs = document.querySelectorAll("#test");
+   // console.log(getDivs);
+         
+
+      myP[i].style.display = "none";
+
+  }
+  myP[getSelect].style.display = "";
 }
 
 //testing search
