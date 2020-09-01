@@ -7,8 +7,10 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
+  document.body.style.backgroundColor = "gray";
   let createTitle = document.createElement("h2");
   createTitle.textContent = "Ali Haider TV Project";
+  createTitle.style.margin = "1.5% 1%";
   createTitle.style.color = "black";
   rootElem.append(createTitle);
 
@@ -18,6 +20,7 @@ function makePageForEpisodes(episodeList) {
   createSelect.style.height = "7.6vh";
   createSelect.style.margin = "1% 0.5%";
   createSelect.style.padding = "0 0.2%";
+  createSelect.style.border = "0.5px solid coral";
   createSelect.id = "select";
   for (let i = 0; i < episodeList.length; i++) {
     let option = document.createElement("option");
@@ -33,10 +36,12 @@ function makePageForEpisodes(episodeList) {
 
   let allButton = document.createElement("button");
   allButton.textContent = "All Episodes";
-  allButton.style.width = "5%";
+  allButton.style.width = "6%";
   allButton.style.height = "7.6vh";
   allButton.style.margin = "1% 0.5%";
   allButton.style.padding = "0 0.2%";
+  allButton.style.borderRadius = "10px";
+  allButton.style.border ="0.5px solid coral";
   allButton.id = "allButton";
   rootElem.append(allButton);
 
@@ -44,7 +49,7 @@ function makePageForEpisodes(episodeList) {
 
   // <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></input>
   let createInput = document.createElement("input");
-  createInput.style.width = "30%";
+  createInput.style.width = "25%";
   createInput.style.height = "7vh";
   createInput.id = "myInput";
   createInput.type = "text";
@@ -54,6 +59,7 @@ function makePageForEpisodes(episodeList) {
   createInput.placeholder = "search for movies";
   createInput.style.margin = "1% 0.5%";
   createInput.style.padding = "0 0.2%";
+  createInput.style.border = "0.5px solid coral";
   rootElem.append(createInput);
 
   let createTotalepisodes = document.createElement("p");
@@ -68,6 +74,8 @@ function episodeData(episodeList) {
   // let createCard = document.createElement("div");
   //createCard.id = "test";
   rootElem.style.backgroundColor = "lightgray";
+  rootElem.style.borderRadius = "10px";
+  rootElem.style.border = "1px solid silver";
   rootElem.style.display = "flex";
   rootElem.style.flexDirection = "row";
   rootElem.style.flexWrap = "wrap";
@@ -91,6 +99,7 @@ function episodeData(episodeList) {
     createCard.style.alignItems = "center";
     createCard.style.width = "30%";
     createCard.style.borderRadius = "10px";
+    createCard.style.border = "0.5px solid silver";
 
     rootElem.append(createCard);
 
