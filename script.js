@@ -1,155 +1,210 @@
 //You can edit ALL of the code here
+var episodeOnlineData;
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  fetch("https://api.tvmaze.com/shows/527/episodes")
+    .then(function (response) {
+      return response.json();
+    })
+
+    .then(function (data) {
+      episodeOnlineData = data;
+      // console.log(episodeOnlineData);
+      // console.log(episodeOnlineData[0].name);
+      // console.log(episodeOnlineData.length);
+      console.log("i am fetched from setup function");
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+
+  const allEpisodes = episodeOnlineData;
+  makePageForEpisodes();
   episodeData(allEpisodes);
 }
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  document.body.style.backgroundColor = "gray";
-  let createTitle = document.createElement("h2");
-  createTitle.textContent = "Ali Haider TV Project";
-  createTitle.style.margin = "1.5% 1%";
-  createTitle.style.color = "black";
-  rootElem.append(createTitle);
+//test online data
 
-  //test select
-  let createSelect = document.createElement("select");
-  createSelect.style.width = "20%";
-  createSelect.style.height = "7.6vh";
-  createSelect.style.margin = "1% 0.5%";
-  createSelect.style.padding = "0 0.2%";
-  createSelect.style.border = "0.5px solid coral";
-  createSelect.id = "select";
-  for (let i = 0; i < episodeList.length; i++) {
-    let option = document.createElement("option");
-    option.text = episodeList[i].name;
-    createSelect.append(option);
-  }
+function makePageForEpisodes() {
+  fetch("https://api.tvmaze.com/shows/527/episodes")
+    .then(function (response) {
+      return response.json();
+    })
 
-  rootElem.append(createSelect);
-  //
-  createSelect.addEventListener("click", myFunction1);
+    .then(function (data) {
+      episodeOnlineData = data;
+      // console.log(episodeOnlineData);
+      // console.log(episodeOnlineData[0].name);
+      // console.log(episodeOnlineData.length);
+      console.log("i am fetched from makepageforepisodes() function");
 
-  //test all episodes button
+      const rootElem = document.getElementById("root");
+      document.body.style.backgroundColor = "gray";
+      let createTitle = document.createElement("h2");
+      createTitle.textContent = "Ali Haider TV Project";
 
-  let allButton = document.createElement("button");
-  allButton.textContent = "All Episodes";
-  allButton.style.width = "6%";
-  allButton.style.height = "7.6vh";
-  allButton.style.margin = "1% 0.5%";
-  allButton.style.padding = "0 0.2%";
-  allButton.style.borderRadius = "10px";
-  allButton.style.border ="0.5px solid coral";
-  allButton.id = "allButton";
-  rootElem.append(allButton);
+      createTitle.style.margin = "1.5% 1%";
+      createTitle.style.color = "black";
+      rootElem.append(createTitle);
 
-  allButton.addEventListener("click", myFunction2);
+      //test select
+      let createSelect = document.createElement("select");
+      createSelect.style.width = "15%";
+      createSelect.style.height = "7.6vh";
+      createSelect.style.margin = "1% 0.5%";
+      createSelect.style.padding = "0 0.2%";
+      createSelect.style.border = "0.5px solid coral";
+      createSelect.id = "select";
+      for (let i = 0; i < episodeOnlineData.length; i++) {
+        let option = document.createElement("option");
+        option.text = episodeOnlineData[i].name;
+        createSelect.append(option);
+      }
 
-  // <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></input>
-  let createInput = document.createElement("input");
-  createInput.style.width = "25%";
-  createInput.style.height = "7vh";
-  createInput.id = "myInput";
-  createInput.type = "text";
-  createInput.addEventListener("keyup", function (e) {
-    myFunction();
-  });
-  createInput.placeholder = "search for movies";
-  createInput.style.margin = "1% 0.5%";
-  createInput.style.padding = "0 0.2%";
-  createInput.style.border = "0.5px solid coral";
-  rootElem.append(createInput);
+      rootElem.append(createSelect);
+      //
+      
+      createSelect.addEventListener("click", myFunction1);
 
-  let createTotalepisodes = document.createElement("p");
-  createTotalepisodes.textContent = `Displaying ${episodeList.length} episodes`;
-  createTotalepisodes.style.width = "20%";
-  createTotalepisodes.style.margin = "2% 0.5%";
-  rootElem.append(createTotalepisodes);
+      //test all episodes button
+
+      let allButton = document.createElement("button");
+      allButton.textContent = "All Episodes";
+      allButton.style.width = "6%";
+      allButton.style.height = "7.6vh";
+      allButton.style.margin = "1% 0.5%";
+      allButton.style.padding = "0 0.2%";
+      allButton.style.borderRadius = "10px";
+      allButton.style.border = "0.5px solid coral";
+      allButton.id = "allButton";
+      rootElem.append(allButton);
+
+      allButton.addEventListener("click", myFunction2);
+
+      // <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></input>
+      let createInput = document.createElement("input");
+      createInput.style.width = "15%";
+      createInput.style.height = "7vh";
+      createInput.id = "myInput";
+      createInput.type = "text";
+      createInput.addEventListener("keyup", function (e) {
+        myFunction();
+      });
+      createInput.placeholder = "search for movies";
+      createInput.style.margin = "1% 0.5%";
+      createInput.style.padding = "0 0.2%";
+      createInput.style.border = "0.5px solid coral";
+      rootElem.append(createInput);
+
+      let createTotalepisodes = document.createElement("p");
+      createTotalepisodes.textContent = `Displaying ${episodeOnlineData.length} episodes`;
+      createTotalepisodes.style.width = "20%";
+      createTotalepisodes.style.margin = "2% 0.5%";
+      rootElem.append(createTotalepisodes);
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
 }
 
-function episodeData(episodeList) {
-  const rootElem = document.getElementById("root");
-  // let createCard = document.createElement("div");
-  //createCard.id = "test";
-  rootElem.style.backgroundColor = "lightgray";
-  rootElem.style.borderRadius = "10px";
-  rootElem.style.border = "1px solid silver";
-  rootElem.style.display = "flex";
-  rootElem.style.flexDirection = "row";
-  rootElem.style.flexWrap = "wrap";
-  rootElem.style.justifyContent = "space-around";
-  rootElem.style.margin = "1%";
-  // createCard.style.width = "41.8%";
+function episodeData() {
+  fetch("https://api.tvmaze.com/shows/527/episodes")
+    .then(function (response) {
+      return response.json();
+    })
 
-  episodeList.forEach((episode) => {
-    // upper test card
-    //select
+    .then(function (data) {
+      episodeOnlineData = data;
+      // console.log(episodeOnlineData);
+      // console.log(episodeOnlineData[0].name);
+      // console.log(episodeOnlineData.length);
+      console.log("i am fetched from episodeData() function");
 
-    //create Card
-    let createCard = document.createElement("div");
-    createCard.id = "test";
-    createCard.style.backgroundColor = "white";
-    createCard.style.margin = "1%";
-    createCard.style.padding = "0% 0.5%";
-    createCard.style.display = "flex";
-    createCard.style.flexDirection = "column";
-    createCard.style.alignItems = "center";
-    createCard.style.alignItems = "center";
-    createCard.style.width = "30%";
-    createCard.style.borderRadius = "10px";
-    createCard.style.border = "0.5px solid silver";
+      const rootElem = document.getElementById("root");
+      // let createCard = document.createElement("div");
+      //createCard.id = "test";
+      rootElem.style.backgroundColor = "lightgray";
+      rootElem.style.borderRadius = "10px";
+      rootElem.style.border = "1px solid silver";
+      rootElem.style.display = "flex";
+      rootElem.style.flexDirection = "row";
+      rootElem.style.flexWrap = "wrap";
+      rootElem.style.justifyContent = "space-around";
+      rootElem.style.margin = "1%";
+      // createCard.style.width = "41.8%";
 
-    rootElem.append(createCard);
+      episodeOnlineData.forEach((episode) => {
+        // upper test card
+        //select
 
-    // season number
-    let seasonNumber = document.createElement("p");
-    seasonNumber.style.color = "black";
-    seasonNumber.style.fontWeight = "700";
-    seasonNumber.style.border = "1px solid black";
-    seasonNumber.style.borderRadius = "10px";
-    seasonNumber.style.margin = "5% 2%";
-    seasonNumber.style.padding = "2% 15%";
-    seasonNumber.width = "100%";
-    seasonNumber.style.height = "auto";
-    seasonNumber.style.fontSize = "0.9rem";
-    seasonNumber.textContent = seasonStringProcessor(
-      episode.name,
-      episode.season,
-      episode.number
-    );
-    createCard.append(seasonNumber);
-    //image card
-    let imgCard = document.createElement("div");
-    imgCard.style.width = "50%";
-    createCard.append(imgCard);
-    //
-    //test link
-    let createLinks = document.createElement("a");
-    imgCard.append(createLinks);
-    createLinks.href = episode.url;
-    // img element
-    let createImg = document.createElement("img");
-    createImg.src = episode.image.medium;
-    createImg.style.width = "100%";
-    createLinks.append(createImg);
+        //create Card
+        let createCard = document.createElement("div");
+        createCard.id = "test";
+        createCard.style.backgroundColor = "white";
+        createCard.style.margin = "1%";
+        createCard.style.padding = "0% 0.5%";
+        createCard.style.display = "flex";
+        createCard.style.flexDirection = "column";
+        createCard.style.alignItems = "center";
+        createCard.style.alignItems = "center";
+        createCard.style.width = "30%";
+        createCard.style.borderRadius = "10px";
+        createCard.style.border = "0.5px solid silver";
 
-    // summary
+        rootElem.append(createCard);
 
-    let summary = document.createElement("p");
-    summary.innerHTML = episode.summary;
-    summary.style.width = "70%";
-    summary.style.color = "black";
-    createCard.append(summary);
+        // season number
+        let seasonNumber = document.createElement("p");
+        seasonNumber.style.color = "black";
+        seasonNumber.style.fontWeight = "700";
+        seasonNumber.style.border = "1px solid black";
+        seasonNumber.style.borderRadius = "10px";
+        seasonNumber.style.margin = "5% 2%";
+        seasonNumber.style.padding = "2% 15%";
+        seasonNumber.width = "100%";
+        seasonNumber.style.height = "auto";
+        seasonNumber.style.fontSize = "0.9rem";
+        seasonNumber.textContent = seasonStringProcessor(
+          episode.name,
+          episode.season,
+          episode.number
+        );
+        createCard.append(seasonNumber);
+        //image card
+        let imgCard = document.createElement("div");
+        imgCard.style.width = "50%";
+        createCard.append(imgCard);
+        //
+        //test link
+        let createLinks = document.createElement("a");
+        imgCard.append(createLinks);
+        createLinks.href = episode.url;
+        // img element
+        let createImg = document.createElement("img");
+        createImg.src = episode.image.medium;
+        createImg.style.width = "100%";
+        createLinks.append(createImg);
 
-    //reference
-    let createReference = document.createElement("a");
-    createReference.style.width = "70%";
-    createReference.innerHTML = "The data has originally come from TVMaze.com";
-    createReference.href = episode.url;
-    createCard.append(createReference);
-  });
+        // summary
+
+        let summary = document.createElement("p");
+        summary.innerHTML = episode.summary;
+        summary.style.width = "70%";
+        summary.style.color = "black";
+        createCard.append(summary);
+
+        //reference
+        let createReference = document.createElement("a");
+        createReference.style.width = "70%";
+        createReference.innerHTML =
+          "The data has originally come from TVMaze.com";
+        createReference.href = episode.url;
+        createCard.append(createReference);
+      });
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
 }
 
 function seasonStringProcessor(episodeName, seasonNumber, episodeNumber) {
@@ -196,7 +251,7 @@ function myFunction1() {
   document.getElementById("#test");
   const rootElem = document.getElementById("root");
   let getSelect = document.querySelector("select").selectedIndex;
-  console.log(getSelect);
+  //console.log(getSelect);
 
   myP = document.querySelectorAll("#test");
 
@@ -225,7 +280,7 @@ function myFunction() {
   const rootElem = document.getElementById("root");
   var input, filter, myP, i, txtValue;
   input = document.getElementById("myInput");
-  console.log(input);
+  //console.log(input);
   filter = input.value.toUpperCase();
   //console.log(filter);
   //ul = document.getElementById("myUL");
