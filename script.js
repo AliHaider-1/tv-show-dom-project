@@ -1,7 +1,8 @@
 //You can edit ALL of the code here
 var episodeOnlineData;
-
+// Setup function
 function setup() {
+  //fetch api
   fetch("https://api.tvmaze.com/shows/527/episodes")
     .then(function (response) {
       return response.json();
@@ -17,15 +18,15 @@ function setup() {
     .catch(function (err) {
       console.log(err);
     });
-
+ // some variables to display data
   const allEpisodes = episodeOnlineData;
   makePageForEpisodes();
   episodeData(allEpisodes);
 }
 
-//test online data
-
+// function to make upper page  functionalities //search//select//all episodes button
 function makePageForEpisodes() {
+  //fetch
   fetch("https://api.tvmaze.com/shows/527/episodes")
     .then(function (response) {
       return response.json();
@@ -37,7 +38,8 @@ function makePageForEpisodes() {
       // console.log(episodeOnlineData[0].name);
       // console.log(episodeOnlineData.length);
       console.log("i am fetched from makepageforepisodes() function");
-
+      
+      // title of the project // logo// title
       const rootElem = document.getElementById("root");
       document.body.style.backgroundColor = "gray";
       let createTitle = document.createElement("h2");
@@ -47,7 +49,7 @@ function makePageForEpisodes() {
       createTitle.style.color = "black";
       rootElem.append(createTitle);
 
-      //test select
+      //select button to go to specific episode
       let createSelect = document.createElement("select");
       createSelect.style.width = "15%";
       createSelect.style.height = "7.6vh";
@@ -62,12 +64,9 @@ function makePageForEpisodes() {
       }
 
       rootElem.append(createSelect);
-      //
-      
-      createSelect.addEventListener("click", myFunction1);
+      createSelect.addEventListener("click", myFunctionSelect);
 
-      //test all episodes button
-
+      //All episodes button
       let allButton = document.createElement("button");
       allButton.textContent = "All Episodes";
       allButton.style.width = "6%";
@@ -79,20 +78,20 @@ function makePageForEpisodes() {
       allButton.id = "allButton";
       rootElem.append(allButton);
 
-      allButton.addEventListener("click", myFunction2);
+      allButton.addEventListener("click", myFunctionAllEpisodesButton);
 
-      // <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></input>
+      // Search box // create Input
       let createInput = document.createElement("input");
       createInput.style.width = "15%";
       createInput.style.height = "7vh";
       createInput.id = "myInput";
       createInput.type = "text";
       createInput.addEventListener("keyup", function (e) {
-        myFunction();
+        myFunctionSearch();
       });
       createInput.placeholder = "search for movies";
       createInput.style.margin = "1% 0.5%";
-      createInput.style.padding = "0 0.2%";
+      createInput.style.padding = "0 0.5%";
       createInput.style.border = "0.5px solid coral";
       rootElem.append(createInput);
 
@@ -106,8 +105,9 @@ function makePageForEpisodes() {
       console.log(err);
     });
 }
-
+// function to create the episodes data cards on the page
 function episodeData() {
+  //fetch
   fetch("https://api.tvmaze.com/shows/527/episodes")
     .then(function (response) {
       return response.json();
@@ -120,9 +120,8 @@ function episodeData() {
       // console.log(episodeOnlineData.length);
       console.log("i am fetched from episodeData() function");
 
+      //some variables declare and did some styling 
       const rootElem = document.getElementById("root");
-      // let createCard = document.createElement("div");
-      //createCard.id = "test";
       rootElem.style.backgroundColor = "lightgray";
       rootElem.style.borderRadius = "10px";
       rootElem.style.border = "1px solid silver";
@@ -131,12 +130,10 @@ function episodeData() {
       rootElem.style.flexWrap = "wrap";
       rootElem.style.justifyContent = "space-around";
       rootElem.style.margin = "1%";
-      // createCard.style.width = "41.8%";
-
+     
+      // for each is used to display all episode cards
       episodeOnlineData.forEach((episode) => {
-        // upper test card
-        //select
-
+     
         //create Card
         let createCard = document.createElement("div");
         createCard.id = "test";
@@ -170,15 +167,17 @@ function episodeData() {
           episode.number
         );
         createCard.append(seasonNumber);
+
         //image card
         let imgCard = document.createElement("div");
         imgCard.style.width = "50%";
         createCard.append(imgCard);
-        //
-        //test link
+        
+        // link on images are created
         let createLinks = document.createElement("a");
         imgCard.append(createLinks);
         createLinks.href = episode.url;
+
         // img element
         let createImg = document.createElement("img");
         createImg.src = episode.image.medium;
@@ -186,7 +185,6 @@ function episodeData() {
         createLinks.append(createImg);
 
         // summary
-
         let summary = document.createElement("p");
         summary.innerHTML = episode.summary;
         summary.style.width = "70%";
@@ -207,6 +205,7 @@ function episodeData() {
     });
 }
 
+// function created to display season numbers in required format
 function seasonStringProcessor(episodeName, seasonNumber, episodeNumber) {
   if (seasonNumber < 10 && episodeNumber < 10) {
     return `${episodeName} - S0${seasonNumber} E0${episodeNumber}`;
@@ -218,10 +217,10 @@ function seasonStringProcessor(episodeName, seasonNumber, episodeNumber) {
     return `${episodeName} - S${seasonNumber} E${episodeNumber}`;
   }
 }
-//
 
-//
-function myFunction2() {
+
+//function created to perform all episodes button functionality
+function myFunctionAllEpisodesButton() {
   var i, myP;
   document.getElementById("#test");
   const rootElem = document.getElementById("root");
@@ -246,7 +245,8 @@ function myFunction2() {
   }
 }
 
-function myFunction1() {
+// functin created to perform  select functionality 
+function myFunctionSelect() {
   var i, myP;
   document.getElementById("#test");
   const rootElem = document.getElementById("root");
@@ -274,8 +274,8 @@ function myFunction1() {
   myP[getSelect].style.borderRadius = "20px";
 }
 
-//testing search
-function myFunction() {
+//function created to perform search functionality
+function myFunctionSearch() {
   document.getElementById("#test");
   const rootElem = document.getElementById("root");
   var input, filter, myP, i, txtValue;
