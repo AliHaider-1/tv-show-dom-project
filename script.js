@@ -3,8 +3,10 @@
 function setup() {
   // some variables to display data
   const allEpisodes = episodeOnlineData;
+   allShows = getAllShows();
   makePageForEpisodes();
   episodeData(allEpisodes);
+  Shows();
   //fetch api
   fetch("https://api.tvmaze.com/shows/527/episodes")
     .then(function (response) {
@@ -25,7 +27,7 @@ function setup() {
 }
 var episodeOnlineData;
 
-
+var allShows;
 
 
 // function created to display season numbers in required format
@@ -319,6 +321,36 @@ function episodeData() {
     .catch(function (err) {
       console.log(err);
     });
+}
+
+function Shows(getAllShows){
+  const rootElem = document.getElementById("root");
+   console.log(allShows[0].name);
+  //select button to go to specific episode
+  let createSelectShows = document.createElement("select");
+  createSelectShows.style.width = "15%";
+  createSelectShows.style.height = "7.6vh";
+  createSelectShows.style.margin = "1% 0.5%";
+  createSelectShows.style.padding = "0 0.2%";
+  createSelectShows.style.border = "0.5px solid coral";
+  createSelectShows.id = "select";
+   let getShowNames = [];
+  for (let i = 0; i < allShows.length; i++) {
+    getShowNames.push(allShows[i].name);
+  }
+ 
+      let sortedShowNames = getShowNames.sort();
+  console.log(sortedShowNames);
+   for (let i = 0; i < allShows.length; i++) {
+    
+    let option = document.createElement("option");
+    option.text = sortedShowNames[i];
+    createSelectShows.append(option);
+  }
+
+  rootElem.append(createSelectShows);
+  //createSelectShows.addEventListener("click", myFunctionSelectShows);
+
 }
 
 
