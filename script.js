@@ -128,7 +128,7 @@ function makePageForEpisodes(episodeList) {
   rootElem.append(createTitle);
   //test 2nd select
 
-  createSelectShows.style.width = "15%";
+  createSelectShows.style.width = "13%";
   createSelectShows.style.height = "7.6vh";
   createSelectShows.style.margin = "1% 0.5%";
   createSelectShows.style.padding = "0 0.2%";
@@ -184,7 +184,7 @@ function makePageForEpisodes(episodeList) {
   });
 
   //select button to go to specific episode
-  createSelect.style.width = "15%";
+  createSelect.style.width = "13%";
   createSelect.style.height = "7.6vh";
   createSelect.style.margin = "1% 0.5%";
   createSelect.style.padding = "0 0.2%";
@@ -227,7 +227,7 @@ function makePageForEpisodes(episodeList) {
 
   // Search box // create Input
 
-  createInput.style.width = "15%";
+  createInput.style.width = "13%";
   createInput.style.height = "7vh";
   createInput.id = "myInput";
   createInput.type = "text";
