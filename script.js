@@ -9,7 +9,7 @@ allShows = fetch(`https://api.tvmaze.com/shows`)
   .catch((err) => console.log(err));
 
 function setup() {  
-   fetch(`https://api.tvmaze.com/shows/124/episodes`)
+   fetch(`https://api.tvmaze.com/shows`)
      .then((response) => response.json())
      .then((onlineallEpisodes) => makePageForEpisodes(onlineallEpisodes))
      .catch((err) => console.log(err));     
@@ -47,6 +47,9 @@ function myFunctionAllEpisodesButton() {
 }
 // function created to perform  select functionality 
 function myFunctionSelect() {
+ 
+    allButton.style.visibility="visible";
+
   var i, myP;
   document.getElementById("#test");
   const rootElem = document.getElementById("root");
@@ -98,13 +101,21 @@ function myFunctionSearch() {
  
 
 }
+function mybackButton(){
+
+  window.location.reload();
+}
 // function to make
 let createTitle = document.createElement("h2"); 
-
+let change = "shows";
+let changer = "All Shows"
  let createSelectShows = document.createElement("select");
+ let backButton = document.createElement("button");
  let allButton = document.createElement("button");
   let createInput = document.createElement("input");
   let createTotalepisodes = document.createElement("p");
+
+  
 function makePageForEpisodes(episodeList) {
   let createSelect = document.createElement("select");
   // title of the project // logo// title
@@ -116,7 +127,7 @@ function makePageForEpisodes(episodeList) {
   createTitle.style.color = "black";
   rootElem.append(createTitle);
   //test 2nd select
-  
+
   createSelectShows.style.width = "15%";
   createSelectShows.style.height = "7.6vh";
   createSelectShows.style.margin = "1% 0.5%";
@@ -140,6 +151,10 @@ function makePageForEpisodes(episodeList) {
 
   rootElem.append(createSelectShows);
   createSelectShows.addEventListener("change", function () {
+    change = "Episodes";
+    changer = "All Episodes";
+
+  
     // console.log("i am changed");
     //displayEpisodes();
      let removeCard = document.querySelectorAll("#test");
@@ -156,6 +171,7 @@ function makePageForEpisodes(episodeList) {
      //console.log(showvalue);
      const getid = allShows.filter((show) => showvalue === show.name);
     // console.log(getid[0].id);
+   
      realid = getid[0].id;
      fetch(`https://api.tvmaze.com/shows/${realid}/episodes`)
        .then((response) => response.json())
@@ -163,6 +179,8 @@ function makePageForEpisodes(episodeList) {
        .catch((err) => console.log(err));
 
     //  console.log(allShows);
+
+
   });
 
   //select button to go to specific episode
@@ -182,11 +200,22 @@ function makePageForEpisodes(episodeList) {
   
   rootElem.append(createSelect);
   createSelect.addEventListener("change", myFunctionSelect);
+  
+   backButton.textContent = "Back";
+  backButton.style.width = "5%";
+  backButton.style.height = "7.6vh";
+  backButton.style.margin = "1% 0.5%";
+  backButton.style.padding = "0 0.2%";
+  backButton.style.borderRadius = "10px";
+  backButton.style.border = "0.5px solid coral";
+  backButton.id = "allButton";
+  rootElem.append(backButton);
+  backButton.addEventListener("click", mybackButton);
 
   //All episodes button
-
-  allButton.textContent = "All Episodes";
-  allButton.style.width = "6%";
+  allButton.style.visibility = "hidden";
+  allButton.textContent = `${changer}`;
+  allButton.style.width = "5%";
   allButton.style.height = "7.6vh";
   allButton.style.margin = "1% 0.5%";
   allButton.style.padding = "0 0.2%";
@@ -222,7 +251,8 @@ function makePageForEpisodes(episodeList) {
      
   
  
-  createTotalepisodes.textContent = `Displaying ${episodeList.length} episodes`;
+  createTotalepisodes.textContent = `Displaying ${episodeList.length} ${change}`;
+  createTotalepisodes.id="cte";
   createTotalepisodes.style.width = "20%";
   createTotalepisodes.style.margin = "2% 0.5%";
   rootElem.append(createTotalepisodes);
@@ -295,16 +325,40 @@ function makePageForEpisodes(episodeList) {
     summary.style.color = "black";
     createCard.append(summary);
 
+   if( episode && episode.rating ){
+    let createGenre = document.createElement("h5");
+    createGenre.style.width = "80%";
+    createGenre.innerHTML = `<span style="color:red">Genre:</span> ${episode.genres}`;
+    createGenre.style.color = "black";
+    createCard.append(createGenre);
+
+     let createStatus = document.createElement("h5");
+    createStatus.style.width = "80%";
+    createStatus.innerHTML = `<span style="color:red">Status:</span> ${episode.status}`;
+    createStatus.style.color = "black";
+    createCard.append(createStatus);
+
+    let createRating = document.createElement("h5");
+    createRating.style.width = "80%";
+    createRating.innerHTML = `<span style="color:red">Rating:</span> ${episode.rating.average}`;
+    createRating.style.color = "black";
+    createCard.append(createRating);
+
+    let createRuntime = document.createElement("h5");
+    createRuntime.style.width = "80%";
+    createRuntime.innerHTML = `<span style="color:red">Runtime:</span> ${episode.runtime} mins`;
+    createRuntime.style.color = "black";
+    createCard.append(createRuntime);}
     //reference
     let createReference = document.createElement("a");
     createReference.style.width = "70%";
     createReference.innerHTML = "The data has originally come from TVMaze.com";
     createReference.href = episode.url;
     createCard.append(createReference);
+
+
   });
 } // for each end
-  function displayEpisodes(){
-     
-  }
+
 
 window.onload = setup;
